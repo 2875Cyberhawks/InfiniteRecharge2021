@@ -23,6 +23,8 @@ public class Robot extends TimedRobot {
   //public static ShootSystem ss;
   public static DriveSystem ds;
   
+  public static RedLayout rl;
+
   public static IntakeSystem is;
   public static PixyCam ballPixy;
   public static PixyCam goalPixy;
@@ -41,6 +43,7 @@ public class Robot extends TimedRobot {
     //ss = new ShootSystem();
     is = new IntakeSystem();
     ds = new DriveSystem();
+    rl = new RedLayout();
     gyro = new AHRS(SPI.Port.kMXP); 
     ballPixy = new PixyCam();
     //goalPixy = new PixyCam();
@@ -53,10 +56,12 @@ public class Robot extends TimedRobot {
     System.out.println("Auto selected: " + m_autoSelected);
     inAuto = true;
     gyro.reset();
+    if(rl != null) //we're going to need to write a start() or find one in the parents
+      //rl.start();
   }
 
   public void autonomousPeriodic() {
-    switch (m_autoSelected) {
+  /*  switch (m_autoSelected) {
       case kCustomAuto:
         // Put custom auto code here
         break;
@@ -64,7 +69,8 @@ public class Robot extends TimedRobot {
       default:
         // Put default auto code here
         break;
-    }
+    }*/
+    CommandScheduler.getInstance().run();
   }
 
   public void teleopInit() {
