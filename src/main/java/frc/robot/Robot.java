@@ -56,7 +56,7 @@ public class Robot extends TimedRobot {
     System.out.println("Auto selected: " + m_autoSelected);
     inAuto = true;
     gyro.reset();
-    if(rl != null) //we're going to need to write a start() or find one in the parents
+    if(rl != null){} //we're going to need to write a start() or find one in the parents
       //rl.start();
   }
 
