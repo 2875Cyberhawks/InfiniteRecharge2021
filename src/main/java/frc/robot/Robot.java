@@ -23,7 +23,7 @@ public class Robot extends TimedRobot {
   //public static ShootSystem ss;
   public static DriveSystem ds;
   
-  public static RedLayout rl;
+  public static TestAuto ta;
 
   public static IntakeSystem is;
   public static PixyCam ballPixy;
@@ -43,7 +43,7 @@ public class Robot extends TimedRobot {
     //ss = new ShootSystem();
     is = new IntakeSystem();
     ds = new DriveSystem();
-    rl = new RedLayout();
+
     gyro = new AHRS(SPI.Port.kMXP); 
     ballPixy = new PixyCam();
     //goalPixy = new PixyCam();
@@ -56,8 +56,7 @@ public class Robot extends TimedRobot {
     System.out.println("Auto selected: " + m_autoSelected);
     inAuto = true;
     gyro.reset();
-    if(rl != null){} //we're going to need to write a start() or find one in the parents
-      //rl.start();
+    
   }
 
   public void autonomousPeriodic() {
@@ -78,7 +77,7 @@ public class Robot extends TimedRobot {
     gyro.reset();//if robot is facing forwards at end of auto
     ds.setDefaultCommand(new Drive());
     is.setDefaultCommand(new Intake());
-    //ss.setDefaultCommand(new Shoot());
+   // ss.setDefaultCommand(new Shoot());
   }
 
   public void teleopPeriodic() {
