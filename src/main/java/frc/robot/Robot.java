@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.*;
 import frc.robot.commands.*;
 import frc.robot.util.PixyCam;
@@ -19,11 +20,13 @@ public class Robot extends TimedRobot {
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
 
+  private RobotContainer rc;
+  
   //public static ClimbSystem cs; 
-  //public static ShootSystem ss;
+  public static ShootSystem ss;
   public static DriveSystem ds;
   
-  public static TestAuto ta;
+  public static Command autoCommand;
 
   public static IntakeSystem is;
   public static PixyCam ballPixy;
@@ -40,7 +43,7 @@ public class Robot extends TimedRobot {
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
 
-    //ss = new ShootSystem();
+    ss = new ShootSystem();
     is = new IntakeSystem();
     ds = new DriveSystem();
 
@@ -48,15 +51,21 @@ public class Robot extends TimedRobot {
     ballPixy = new PixyCam();
     //goalPixy = new PixyCam();
     gyro.reset();
+    
   }
 
   public void autonomousInit() {
+    rc = new RobotContainer();
     m_autoSelected = m_chooser.getSelected();
+    autoCommand = rc.getAutonomousCommand();
     // m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
     System.out.println("Auto selected: " + m_autoSelected);
     inAuto = true;
     gyro.reset();
-    
+    if(autoCommand != null){
+      autoCommand.schedule();
+      System.out.print("Autocommand scheduled");
+    }
   }
 
   public void autonomousPeriodic() {
@@ -70,15 +79,20 @@ public class Robot extends TimedRobot {
         break;
     }*/
     CommandScheduler.getInstance().run();
+    System.out.print("autoPeriodic Happened");
   }
+
+  // public void RobotPeriodic(){
+  //   CommandScheduler.getInstance().run();
+  // }
 
   public void teleopInit() {
     inAuto = false;
     gyro.reset();//if robot is facing forwards at end of auto
     ds.setDefaultCommand(new Drive());
     is.setDefaultCommand(new Intake());
-   // ss.setDefaultCommand(new Shoot());
-  }
+   ss.setDefaultCommand(new Shoot());
+ }
 
   public void teleopPeriodic() {
     CommandScheduler.getInstance().run();

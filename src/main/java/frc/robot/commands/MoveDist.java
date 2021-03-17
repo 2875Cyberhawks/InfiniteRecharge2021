@@ -16,11 +16,13 @@ public class MoveDist extends CommandBase {
   public MoveDist(double d) {
     addRequirements(Robot.ds);
     goal = d;
+    System.out.print("movedist constructed");
   }
 
   public void initialize() {
     init = Robot.ds.getPositions();
     ang = Robot.getAngle();
+    System.out.print("movedist Initialized");
   }
 
   public void execute() {
@@ -41,6 +43,7 @@ public class MoveDist extends CommandBase {
     corr = Math.abs(corr) > DriveSystem.MAX_CORR ? Math.abs(corr) / corr  * DriveSystem.MAX_CORR : corr;
 
     Robot.ds.setSpeed(MathUtil.clamp(move + corr, -1, 1), MathUtil.clamp(move - corr, -1, 1));
+    System.out.print("MoveDist Executed");
   }
 
   public void end(boolean interrupted) {
