@@ -5,12 +5,13 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+
 import frc.robot.Robot;
 
-public class AutoSimple extends CommandBase {
+public class AutoCircle extends CommandBase {
   public static long startTime;
   public long activeTime;
-  public AutoSimple(long inputTime) {
+  public AutoCircle(long inputTime) {
     addRequirements(Robot.ds);
     activeTime = inputTime;
   }
@@ -24,7 +25,7 @@ public class AutoSimple extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Robot.ds.setSpeed(-.5,.5);
+    Robot.ds.setSpeed(-.25,.5);
   }
 
   // Called once the command ends or is interrupted.
