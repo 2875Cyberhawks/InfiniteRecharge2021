@@ -11,9 +11,13 @@ import frc.robot.Robot;
 public class AutoCircle extends CommandBase {
   public static long startTime;
   public long activeTime;
-  public AutoCircle(long inputTime) {
+  public static double lSpeed, rSpeed;
+  public AutoCircle(long inputTime, double lS, double rS) {
     addRequirements(Robot.ds);
     activeTime = inputTime;
+
+    lSpeed = lS;
+    rSpeed = rS;
   }
 
   // Called when the command is initially scheduled.
@@ -25,7 +29,7 @@ public class AutoCircle extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Robot.ds.setSpeed(-.25,.5);
+    Robot.ds.setSpeed(-lSpeed,rSpeed);
   }
 
   // Called once the command ends or is interrupted.
