@@ -131,10 +131,10 @@ public class DriveSystem extends SubsystemBase {
   }
 
   public void periodic(){
-    SmartDashboard.putNumber("leftMotorInput", lcontroller.calculate(leftEnc.getRate())/5700);
-    SmartDashboard.putNumber("rightMotorInput", rcontroller.calculate(rightEnc.getRate())/5700);
-    left.set((lcontroller.calculate(leftEnc.getRate()))/5700);
-    right.set((rcontroller.calculate(rightEnc.getRate()))/5700);
+    SmartDashboard.putNumber("leftMotorInput", lcontroller.calculate(right.getEncoder().getVelocity())/5700);
+    SmartDashboard.putNumber("rightMotorInput", rcontroller.calculate(right.getEncoder().getVelocity())/5700);
+    left.set(lcontroller.calculate(left.getEncoder().getVelocity())/5700);
+    right.set(rcontroller.calculate(right.getEncoder().getVelocity())/5700);
     //odo.update(new Rotation2d(Math.toRadians(Robot.getAngle())), rightEnc.getDistance(), leftEnc.getDistance());
   }
 
