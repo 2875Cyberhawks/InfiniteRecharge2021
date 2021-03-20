@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 
 public class AutoSimple extends CommandBase {
-  public static long startTime;
+  public  long startTime;
   public long activeTime;
   public AutoSimple(long inputTime) {
     addRequirements(Robot.ds);

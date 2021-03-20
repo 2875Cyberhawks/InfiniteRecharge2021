@@ -15,6 +15,6 @@ public class Auto extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     //.68 and .3 for tight circle
-    addCommands(new AutoCircle((long)7,.68,.3),new AutoSimple((long)2), new AutoCircle((long)7,.3,.68));
+    addCommands(new AutoSimple((long)3), new AutoCircle((long)7.5,.3,.68),new AutoSimple((long)2), new AutoCircle((long)5.8,.68,.3), new AutoSimple((long)1));
   }
 }

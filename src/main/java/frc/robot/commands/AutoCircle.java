@@ -9,9 +9,9 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 
 public class AutoCircle extends CommandBase {
-  public static long startTime;
+  public long startTime;
   public long activeTime;
-  public static double lSpeed, rSpeed;
+  public double lSpeed, rSpeed;
   public AutoCircle(long inputTime, double lS, double rS) {
     addRequirements(Robot.ds);
     activeTime = inputTime;

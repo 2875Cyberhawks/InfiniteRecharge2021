@@ -64,7 +64,6 @@ public class Robot extends TimedRobot {
     gyro.reset();
     if(autoCommand != null){
       autoCommand.schedule();
-      System.out.print("Autocommand scheduled");
     }
   }
 
@@ -79,7 +78,6 @@ public class Robot extends TimedRobot {
         break;
     }*/
     CommandScheduler.getInstance().run();
-    System.out.print("autoPeriodic Happened");
   }
 
   // public void RobotPeriodic(){
