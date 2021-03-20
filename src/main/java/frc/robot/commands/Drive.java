@@ -41,7 +41,7 @@ public class Drive extends CommandBase {
 
     double left = -MathUtil.clamp(notPaul + turn * T_MULT, -1, 1);
     double right = MathUtil.clamp(notPaul - turn * T_MULT, -1, 1);
-    Robot.ds.setSpeed(left, right);
+    Robot.ds.setSpeed(left* 5700, right * 5700);
     
     
   }

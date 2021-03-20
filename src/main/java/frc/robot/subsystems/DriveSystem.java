@@ -12,8 +12,10 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.ctre.phoenix.motorcontrol.InvertType;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.controller.PIDController;
 
 public class DriveSystem extends SubsystemBase {
 
@@ -24,8 +26,10 @@ public class DriveSystem extends SubsystemBase {
   public static final int[][] E_PORTS = {{6, 7},
                                          {8, 9}};
 
-  public static final double P = 0;
+  public static final double P = .01;
   public static final double D = 0;
+  public static PIDController lcontroller;
+  public static PIDController rcontroller;
   public static final double MAX_CORR = .5;
   public static final double V = 0; //kVolts
   public static final double VSpM = 0; //kVoltSecondsPerMeter
@@ -122,17 +126,21 @@ public class DriveSystem extends SubsystemBase {
 
     left.configPeakCurrentLimit(40);
     left.enableCurrentLimit(true);*/
+    lcontroller = new PIDController(P, 0, D);
+    rcontroller = new PIDController(P, 0, D);
   }
 
   public void periodic(){
-    left.set(lSpeed);
-    right.set(rSpeed);
+    SmartDashboard.putNumber("leftMotorInput", lcontroller.calculate(leftEnc.getRate())/5700);
+    SmartDashboard.putNumber("rightMotorInput", rcontroller.calculate(rightEnc.getRate())/5700);
+    left.set((lcontroller.calculate(leftEnc.getRate()))/5700);
+    right.set((rcontroller.calculate(rightEnc.getRate()))/5700);
     //odo.update(new Rotation2d(Math.toRadians(Robot.getAngle())), rightEnc.getDistance(), leftEnc.getDistance());
   }
 
-  public void setSpeed(double l, double r){
-    lSpeed = l;
-    rSpeed = r;
+  public void setSpeed(double lSpeed, double rSpeed){
+    lcontroller.setSetpoint(lSpeed);
+    rcontroller.setSetpoint(rSpeed);
   }
 
   public double[] getPositions() {
