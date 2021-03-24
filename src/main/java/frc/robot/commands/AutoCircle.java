@@ -29,7 +29,7 @@ public class AutoCircle extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Robot.ds.setSpeed(-lSpeed,rSpeed);
+    Robot.ds.setSpeed(-lSpeed * 5700,rSpeed * 5700);
   }
 
   // Called once the command ends or is interrupted.

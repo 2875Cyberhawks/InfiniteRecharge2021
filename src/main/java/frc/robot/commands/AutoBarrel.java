@@ -14,6 +14,6 @@ public class AutoBarrel extends SequentialCommandGroup {
   public AutoBarrel() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new AutoSimple((long)3), new AutoCircle((long)7.5,.3,.68),new AutoSimple((long)2), new AutoCircle((long)5.8,.68,.3), new AutoSimple((long)1), new AutoCircle((long)5.8, .68, .3), new AutoSimple((long)5));
+    addCommands(new AutoSimple((long)3), new AutoCircle((long)8,.3,.68),new AutoSimple((long)2), new AutoCircle((long)6,.68,.3), new AutoSimple((long)1), new AutoCircle((long)6, .68, .3), new AutoSimple((long)5));
   }
 }

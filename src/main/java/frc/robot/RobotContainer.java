@@ -14,7 +14,7 @@ public class RobotContainer {
     private final Command auto;
 
     public RobotContainer(){
-        auto = new Auto(); //8,.35,.68 for quarter circle
+        auto = new AutoBarrel(); 
     }
 
     public Command getAutonomousCommand(){
