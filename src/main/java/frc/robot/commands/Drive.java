@@ -10,7 +10,7 @@ import frc.robot.subsystems.DriveSystem;
 
 public class Drive extends CommandBase {
 
-  public static final double T_MULT = .3;
+  public static final double T_MULT = .5;
   public double lastAng = 0; 
   public double gyAng = 0;
 
@@ -27,22 +27,24 @@ public class Drive extends CommandBase {
 
   public void execute() {
     gyAng = Robot.getAngle();
+    // if (IO.getForward() == 0)
+    //   Robot.ds.setSpeed(0,0);
+    // else {
+      double turn = -IO.getTurn();
+      double notPaul = IO.getForward();
+      /*if(IO.getGoalAlign())
+        CommandScheduler.getInstance().schedule(new Align('a'));
+      else if(IO.getBallAlign())
+        CommandScheduler.getInstance().schedule(new Align('b'));
+      else if(turn == 0 && notPaul != 0)
+        turn = notPaulDrive();
+      else
+        lastAng = gyAng;*/
 
-    double turn = -IO.getTurn();
-    double notPaul = IO.getForward();
-    /*if(IO.getGoalAlign())
-      CommandScheduler.getInstance().schedule(new Align('a'));
-    else if(IO.getBallAlign())
-      CommandScheduler.getInstance().schedule(new Align('b'));
-    else if(turn == 0 && notPaul != 0)
-      turn = notPaulDrive();
-    else
-      lastAng = gyAng;*/
-
-    double left = -MathUtil.clamp(notPaul + turn * T_MULT, -1, 1);
-    double right = MathUtil.clamp(notPaul - turn * T_MULT, -1, 1);
-    Robot.ds.setSpeed(left* 5700, right * 5700);
-    
+      double left = -MathUtil.clamp(notPaul + turn * T_MULT, -1, 1);
+      double right = MathUtil.clamp(notPaul - turn * T_MULT, -1, 1);
+      Robot.ds.setSpeed(left* 5700, right * 5700);
+//    }
     
   }
 

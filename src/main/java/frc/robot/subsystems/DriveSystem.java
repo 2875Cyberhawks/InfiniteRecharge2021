@@ -26,8 +26,9 @@ public class DriveSystem extends SubsystemBase {
   public static final int[][] E_PORTS = {{6, 7},
                                          {8, 9}};
 
-  public static final double P = .01;
-  public static final double D = 0;
+  public static final double P = .3;
+  public static final double I = 0;
+  public static final double D = .00025;
   public static PIDController lcontroller;
   public static PIDController rcontroller;
   public static final double MAX_CORR = .5;
@@ -54,9 +55,6 @@ public class DriveSystem extends SubsystemBase {
   private Encoder leftEnc = new Encoder(E_PORTS[0][0], E_PORTS[0][1]);
   private Encoder rightEnc = new Encoder(E_PORTS[1][0], E_PORTS[1][1]);
 
-  private double lSpeed = 0;
-
-  private double rSpeed = 0;
 
   public static final double WHEEL_BASE_M = .66675; //26.25 in?
 
@@ -126,19 +124,25 @@ public class DriveSystem extends SubsystemBase {
 
     left.configPeakCurrentLimit(40);
     left.enableCurrentLimit(true);*/
-    lcontroller = new PIDController(P, 0, D);
-    rcontroller = new PIDController(P, 0, D);
+    lcontroller = new PIDController(P, I, D);
+    rcontroller = new PIDController(P, I, D);
   }
 
   public void periodic(){
-    SmartDashboard.putNumber("leftMotorInput", lcontroller.calculate(right.getEncoder().getVelocity())/5700);
-    SmartDashboard.putNumber("rightMotorInput", rcontroller.calculate(right.getEncoder().getVelocity())/5700);
-    left.set(lcontroller.calculate(left.getEncoder().getVelocity())/5700);
-    right.set(rcontroller.calculate(right.getEncoder().getVelocity())/5700);
+    SmartDashboard.putNumber("leftMotorInput", lcontroller.calculate(right.getEncoder().getVelocity())/1000);
+    SmartDashboard.putNumber("rightMotorInput", rcontroller.calculate(right.getEncoder().getVelocity())/1000);
+    left.set(lcontroller.calculate(left.getEncoder().getVelocity())/1000);
+    right.set(rcontroller.calculate(right.getEncoder().getVelocity())/1000);
     //odo.update(new Rotation2d(Math.toRadians(Robot.getAngle())), rightEnc.getDistance(), leftEnc.getDistance());
   }
 
   public void setSpeed(double lSpeed, double rSpeed){
+    SmartDashboard.putNumber("lSetPoint", lSpeed);
+    SmartDashboard.putNumber("rSetPoint", rSpeed);
+    if (Math.abs(lSpeed) < 800)
+      lSpeed = 0;
+    if (Math.abs(rSpeed) < 800)
+      rSpeed = 0;
     lcontroller.setSetpoint(lSpeed);
     rcontroller.setSetpoint(rSpeed);
   }
