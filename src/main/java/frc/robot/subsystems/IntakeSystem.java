@@ -88,7 +88,7 @@ public class IntakeSystem extends SubsystemBase {
   public void periodic(){
     //angle.set(ControlMode.MotionMagic, setpoint);
     intake.set(ControlMode.PercentOutput, inSpeed);
-    elevator.set(ControlMode.PercentOutput, eSpeed);
+    elevator.set(ControlMode.PercentOutput, eSpeed * .5);
 
     //if(setpoint == 0){
      // if(Math.abs(angle.getStatorCurrent() - prevCur) > 5 /*&& Math.abs(angle.getSelectedSensorVelocity()) < 2*/ && angle.getSelectedSensorVelocity() - prevVel <= 0)

@@ -25,15 +25,16 @@ public class AutoSimple extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Robot.ds.setSpeed(-.8 * 5700,.8 * 5700);
+    // long currentTime = System.nanoTime();
+    // double scaler = (currentTime - startTime)/1000000000; 
+    Robot.ds.setSpeed(-.8 * 5700  ,.8 * 5700 );
     
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    Robot.ds.setSpeed(0,0);
-  }
+      }
 
   // Returns true when the command should end.
   @Override

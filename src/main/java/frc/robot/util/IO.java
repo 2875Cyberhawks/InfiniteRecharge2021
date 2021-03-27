@@ -23,10 +23,13 @@ public class IO {
         return xbox.getYButtonPressed();
     }
 
-    public static boolean getX() { //unused
+    public static boolean getX() { //decrease speed
         return xbox.getXButtonPressed();
     }
-
+    
+    public static boolean getY() { // increase speed
+        return xbox.getYButtonPressed();
+    }
     public static boolean getBallAlign() {
         return xbox.getBButtonPressed();
     }

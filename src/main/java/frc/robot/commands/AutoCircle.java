@@ -5,7 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-
+import edu.wpi.first.wpiutil.math.MathUtil;
 import frc.robot.Robot;
 
 public class AutoCircle extends CommandBase {
@@ -29,13 +29,15 @@ public class AutoCircle extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Robot.ds.setSpeed(-lSpeed * 5700,rSpeed * 5700);
+    // long currentTime = System.nanoTime();
+    // double scaler = MathUtil.clamp((currentTime - startTime)/1000000000, 0 , 1);
+    Robot.ds.setSpeed(-lSpeed * 5700 ,rSpeed * 5700);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    Robot.ds.setSpeed(0,0);
+    
   }
 
   // Returns true when the command should end.

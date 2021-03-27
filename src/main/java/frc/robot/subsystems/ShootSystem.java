@@ -7,6 +7,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpiutil.math.MathUtil;
 import frc.robot.Robot;
@@ -98,6 +99,7 @@ public class ShootSystem extends SubsystemBase{
       sal.set(ControlMode.PercentOutput, .4);
       nick.set(ControlMode.PercentOutput, .4);
     }else{ 
+      // SmartDashboard.putNumber("sal speed", )
       sal.set(ControlMode.PercentOutput, -MathUtil.clamp((pidS.calculate(encS.getRate(), setpointS) + ffs.calculate(setpointS)) / 12, -1.0 , 1.0));
       nick.set(ControlMode.PercentOutput, -MathUtil.clamp((pidS.calculate(encS.getRate(), setpointS) + ffs.calculate(setpointS)) / 12, -1.0, 1.0));
     }
@@ -109,7 +111,7 @@ public class ShootSystem extends SubsystemBase{
     
     //sal.set(ControlMode.PercentOutput, .5);
     //nick.set(ControlMode.PercentOutput, .5);
-
+    SmartDashboard.putNumber("ShootSpeed", encS.getRate());
     Robot.atSpeed = atSetpoint();
     //prevCur = avgCur();
     SmartDashboard.putNumber("f spd", encF.getRate());

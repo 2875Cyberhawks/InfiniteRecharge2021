@@ -26,7 +26,7 @@ public class DriveSystem extends SubsystemBase {
   public static final int[][] E_PORTS = {{6, 7},
                                          {8, 9}};
 
-  public static final double P = .3;
+  public static final double P = .2;
   public static final double I = 0;
   public static final double D = .00025;
   public static PIDController lcontroller;
@@ -131,6 +131,8 @@ public class DriveSystem extends SubsystemBase {
   public void periodic(){
     SmartDashboard.putNumber("leftMotorInput", lcontroller.calculate(right.getEncoder().getVelocity())/1000);
     SmartDashboard.putNumber("rightMotorInput", rcontroller.calculate(right.getEncoder().getVelocity())/1000);
+    SmartDashboard.putNumber("lEnc", left.getEncoder().getVelocity());
+    SmartDashboard.putNumber("rEnc", right.getEncoder().getVelocity());
     left.set(lcontroller.calculate(left.getEncoder().getVelocity())/1000);
     right.set(rcontroller.calculate(right.getEncoder().getVelocity())/1000);
     //odo.update(new Rotation2d(Math.toRadians(Robot.getAngle())), rightEnc.getDistance(), leftEnc.getDistance());

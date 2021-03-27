@@ -2,6 +2,7 @@
 package frc.robot.commands;
 import frc.robot.Robot;
 import frc.robot.util.IO;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpiutil.math.MathUtil;
@@ -21,8 +22,8 @@ public class Drive extends CommandBase {
   public void initialize() {
     Robot.ds.setSpeed(0, 0);
     Robot.gyro.reset();
-    lastAng = Robot.getAngle();
-    gyAng = lastAng;
+    lastAng = gyAng;
+    gyAng = Robot.getAngle();
   }
 
   public void execute() {
@@ -41,16 +42,17 @@ public class Drive extends CommandBase {
       else
         lastAng = gyAng;*/
 
-      double left = -MathUtil.clamp(notPaul + turn * T_MULT, -1, 1);
-      double right = MathUtil.clamp(notPaul - turn * T_MULT, -1, 1);
+      double left = -MathUtil.clamp(notPaul  + (turn * T_MULT), -1, 1);
+      double right = MathUtil.clamp(notPaul - (turn * T_MULT), -1, 1);
       Robot.ds.setSpeed(left* 5700, right * 5700);
+      SmartDashboard.putNumber("Straightdrive", notPaulDrive());
 //    }
     
   }
 
   public double notPaulDrive() {
-    return 0;
-    /*double error = gyAng - lastAng;
+    if (IO.getTurn() == 0){
+      double error = gyAng - lastAng;
 
     if (error < -180)
       error += 360;
@@ -60,7 +62,10 @@ public class Drive extends CommandBase {
 
     double corr = (DriveSystem.P * error) - (DriveSystem.D * Robot.gyro.getRate());
 
-    return Math.abs(corr) > DriveSystem.MAX_CORR ? Math.abs(corr) / corr  * DriveSystem.MAX_CORR : corr;*/
+    return Math.abs(corr) > DriveSystem.MAX_CORR ? Math.abs(corr) / corr  * DriveSystem.MAX_CORR : corr;
+    }
+    else
+      return 0;
   }
 
   public void end(boolean interrupted) {

@@ -2,12 +2,14 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 import frc.robot.util.IO;
 
 public class Shoot extends CommandBase {
   public static final double FSPEED = -15;
+  public static double tempSpeed;
   public Shoot() {
     addRequirements(Robot.ss);
   }
@@ -17,6 +19,7 @@ public class Shoot extends CommandBase {
     Robot.ss.setSetpointS(0);
     Robot.ss.setSetpointF(0);
     Robot.ss.stop();
+    tempSpeed = 60;
   }
 
 
@@ -40,6 +43,14 @@ public class Shoot extends CommandBase {
       Robot.ss.setSetpointS(0);
       Robot.ss.setSetpointF(0);
     }
+
+    if (IO.getX()){
+      tempSpeed-= .5;
+    }
+    if (IO.getY()){
+      tempSpeed += .5;
+    }
+    SmartDashboard.putNumber("ShootSpeed ", tempSpeed);
   }
 
   public void end(boolean interrupted) {
@@ -51,6 +62,7 @@ public class Shoot extends CommandBase {
   }
 
   public double sOfD(double d){
-    return 60; //s(d): speed function wrt distance
+    
+    return tempSpeed; //s(d): speed function wrt distance
   }
 }
