@@ -13,7 +13,8 @@ public class PixyCam {
 
     public PixyCam() {
         pixy = Pixy2.createInstance(new SPILink());
-        pixy.init();
+        System.out.println("Pixy: " + pixy.init());
+        pixy.setLamp((byte)1, (byte)1);
     }
 
     public Block getBlock(){

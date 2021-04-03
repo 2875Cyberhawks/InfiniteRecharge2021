@@ -13,6 +13,7 @@ import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.SPI;
 
+
 //testing github
 public class Robot extends TimedRobot {
   private static final String kDefaultAuto = "Default";
@@ -49,7 +50,7 @@ public class Robot extends TimedRobot {
 
     gyro = new AHRS(SPI.Port.kMXP); 
     ballPixy = new PixyCam();
-    //goalPixy = new PixyCam();
+   
     gyro.reset();
     
   }
@@ -97,7 +98,7 @@ public class Robot extends TimedRobot {
   }
 
   public static double getAngle(){
-    double gyAng = gyro.getAngle();
+    double gyAng = gyro.getYaw();
 
     while (gyAng < -180){
       gyAng += 360;
@@ -120,4 +121,6 @@ public class Robot extends TimedRobot {
     }
     return -1; 
   }
+
+
 }

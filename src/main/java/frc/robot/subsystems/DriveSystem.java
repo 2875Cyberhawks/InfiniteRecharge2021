@@ -75,8 +75,8 @@ public class DriveSystem extends SubsystemBase {
     lf1.follow(left);
     lf2.follow(left);
 
-    /*right.setInverted(true);
-    rf1.setInverted(InvertType.FollowMaster);
+    right.setInverted(false);
+    /*rf1.setInverted(InvertType.FollowMaster);
     rf2.setInverted(InvertType.FollowMaster);
 
     right.configFactoryDefault();
